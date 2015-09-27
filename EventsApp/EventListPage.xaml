@@ -1,0 +1,83 @@
+﻿<Page
+    x:Class="EventsApp.EventListPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:EventsApp"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid x:Name="LayoutRoot">
+
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <EntranceThemeTransition/>
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Title Panel -->
+        <StackPanel Grid.Row="0" Margin="19,0,0,0">
+            <TextBlock x:Name="userNameBlock" Text="MY APPLICATION" Style="{ThemeResource TitleTextBlockStyle}" Margin="0,12,0,0"/>
+            <TextBlock Text="Events" Margin="0,-6.5,0,26.5" Style="{ThemeResource HeaderTextBlockStyle}" CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}"/>
+        </StackPanel>
+
+        <!--TODO: Content should be placed within the following grid-->
+        <Grid Grid.Row="1" Margin="19,9.5,19,0">
+            <ProgressRing x:Name="myProgressRing" Visibility="Visible" IsActive="True" Height="90" Width="90" />
+            <ListView Height="0" x:Name="eventsListView" SelectionChanged="getMoreInfoAboutEvent">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="0,0,0,15">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock x:Name="eventTitleBlock" Grid.Row="0" Text="{Binding eventName}" VerticalAlignment="Center" FontSize="20" TextWrapping="Wrap" />
+                            <Grid Grid.Row="1" Margin="0,10,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.Column="0" Source="{Binding photo}" MaxHeight="150" HorizontalAlignment="Left"/>
+                                <Grid Grid.Column="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Row="0" Text="Type" Margin="5,0,5,0" VerticalAlignment="Center" FontSize="15"/>
+                                    <TextBlock x:Name="eventTypeBlock" Grid.Row="0" Grid.Column="1" Text="{Binding eventType}" FontSize="15" VerticalAlignment="Center"/>
+                                    <TextBlock Grid.Row="1" Text="When: " Margin="5,0,5,0" VerticalAlignment="Center" FontSize="15"/>
+                                    <TextBlock x:Name="eventDateBlock" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Text="{Binding eventDate}" FontSize="15" VerticalAlignment="Center"/>
+                                    <TextBlock x:Name="eventTimeBlock" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Text="{Binding eventHours}" FontSize="15" VerticalAlignment="Center"/>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+        </Grid>
+    </Grid>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <CommandBar.PrimaryCommands>
+                <AppBarToggleButton x:Name="onlyFavBtn" Icon="OutlineStar" Label="Only favourites" Checked="AppBarToggleButton_Checked" Unchecked="AppBarToggleButton_Unchecked"  />
+                <AppBarButton x:Name="changePasswordAppBtn" Label="Change password" Icon="Setting" Click="changePasswordAppBtn_Click"/>
+            </CommandBar.PrimaryCommands>
+            <CommandBar.SecondaryCommands>
+                <AppBarButton Label="Log out" Click="AppBarButton_Click"/>
+            </CommandBar.SecondaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
+</Page>
